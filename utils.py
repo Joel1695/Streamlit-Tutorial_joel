@@ -1,30 +1,37 @@
-import pickle
 import streamlit as st
-from keras.models import load_model
 import tensorflow as tf
-
-def predict_flores(data):
-    # Cargar el modelo previamente entrenado para predecir el tipo de flor
-    model = pickle.load(open('models/iris_model.pkl', "rb"))
+import numpy as np
+def predict_Link(data):
+    #api porcesa y descarga informacion del link (tweets de el ultimo mes del usuario)
+    #se prosesan los texto y se vectorizan 
+    # Cargar el modelo previamente entrenado para predecir probabilidad de tendecias suicidas 
+    # model = load_model(ubicaciondel modelo)
     # Realizar la predicción con los datos proporcionados
-    predictions = model.predict(data) 
+    porcentaje = np.random.randint(1,101)
+    if porcentaje > 50 :
+        texto = 'Teniendo en cuenta el resultado del analisis sobre el texto seleccionado recomendamos que se busque asistencia profesional.'
+    elif porcentaje < 50 :
+        texto = 'Teniendo en cuenta el resultado del análisis sobre el texto seleccionado no parece necesario buscar asistencia profesional, no obstante es conveniente estar alerta ante signos de ansiedad o depresión crónica'
+    predictions = f"La probabilidad de que esta persona tenga tendencias suicidas es del {porcentaje}%. \n {texto}"
     return predictions
 
-def predict_imagen(imagen):
-    # Añadir una dimensión extra (lote)
-    imagen = imagen.reshape((1, 32, 32, 3))
-    # Cargar el modelo desde el archivo
-    model = load_model('models/modelo_cifar_10.h5')
-    # Realizar la predicción
-    predictions = model.predict(imagen)
-    predicted_class = tf.argmax(predictions[0]).numpy()
-    # Obtener el nombre de la clase predicha
-    class_names = ['avión', 'automóvil', 'pájaro', 'gato', 'ciervo', 'perro', 'rana', 'caballo', 'barco', 'camión']
-    return class_names[predicted_class]
+def predict_Text(text):
+    #Se procesan el texto y se vectorizan.
+    # Cargar el modelo previamente entrenado para predecir probabilidad de tendecias suicidas 
+    # model = load_model(ubicaciondel modelo)
+    # Realizar la predicción con los datos proporcionados
+    porcentaje = np.random.randint(1,101)
+    if porcentaje > 50 :
+        texto = 'Teniendo en cuenta el resultado del analisis sobre el texto seleccionado recomendamos que se busque asistencia profesional.'
+    elif porcentaje < 50 :
+        texto = 'Teniendo en cuenta el resultado del análisis sobre el texto seleccionado no parece necesario buscar asistencia profesional, no obstante es conveniente estar alerta ante signos de ansiedad o depresión crónica'
+    predictions = f"La probabilidad de que esta persona tenga tendencias suicidas es del {porcentaje}%. \n {texto}"
+    return predictions
 
-def check_client_id(client_id):
-    # Simulación
-    # Cargar credenciales para la BBDD de la empresa y consultar si el identificador del cliente está activo 
-    api_key = st.secrets["DB_USERNAME"]
-    ls_ids = [123,12345,12345678]
-    return True if client_id in ls_ids else False
+
+
+# Función para interactuar con la API
+def obtener_datos_desde_api(link):
+    #api porcesa y descarga informacion del link (tweets de el ultimo mes del usuario)
+    #se deja la infomacion en el formato correspondiente para su vectorizacion
+    return link
