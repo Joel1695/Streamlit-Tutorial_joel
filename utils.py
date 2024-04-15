@@ -1,5 +1,4 @@
 import streamlit as st
-import tensorflow as tf
 import numpy as np
 def predict_Link(data):
     #api porcesa y descarga informacion del link (tweets de el ultimo mes del usuario)
